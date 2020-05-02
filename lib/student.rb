@@ -104,16 +104,12 @@ class Student
 
  end
 
- def self.all_students_in_grade_X(grade_num)
+ def self.all_students_in_grade_X(grade)
    sql=<<-SQL
-      SELECT * FROM students
+      SELECT * FROM students  WHERE grade =?
    SQL
-   a=0
    DB[:conn].execute(sql).map {|e|
-      while a < grade_num
         self.new_from_db(e)
-        a += 1
-      end
     }
  end
 
