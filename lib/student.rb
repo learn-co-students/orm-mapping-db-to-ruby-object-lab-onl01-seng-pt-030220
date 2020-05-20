@@ -77,7 +77,9 @@ class Student
     DB[:conn].execute(sql)
   end 
 
-  #def self.all_students_in_grade_X
-  #end 
+  def self.all_students_in_grade_X(num)
+    sql = "SELECT * FROM students WHERE grade = 'num'";
+    DB[:conn].execute(sql)
+  end 
  
 end
