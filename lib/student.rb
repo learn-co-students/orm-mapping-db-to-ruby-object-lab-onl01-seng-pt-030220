@@ -64,22 +64,30 @@ class Student
 
   def self.students_below_12th_grade
     sql = "SELECT * FROM students WHERE grade < 12";
-    DB[:conn].execute(sql)
+    DB[:conn].execute(sql).map do |row|
+    self.new_from_db(row) 
+    end 
   end 
 
-  def self.first_X_students_in_grade_10(x)
-    sql = "SELECT grade FROM students WHERE grade = 10 LIMIT 1";
-    DB[:conn].execute(sql)
+  def self.first_X_students_in_grade_10(num)
+    sql = "SELECT * FROM students WHERE grade = 10 LIMIT ?";
+    DB[:conn].execute(sql,num).map do |row|
+    self.new_from_db(row)
+    end
   end
 
   def self.first_student_in_grade_10
-    sql = "SELECT FROM students WHERE grade = 10";
-    DB[:conn].execute(sql)
+    sql = "SELECT * FROM students WHERE grade = 10 ORDER BY students.id LIMIT 1";
+    DB[:conn].execute(sql).map do |row|
+    self.new_from_db(row)
+    end.first 
   end 
 
-  def self.all_students_in_grade_X(num)
-    sql = "SELECT * FROM students WHERE grade = 'num'";
-    DB[:conn].execute(sql)
+  def self.all_students_in_grade_X(x)
+    sql = "SELECT * FROM students WHERE grade = ?";
+    DB[:conn].execute(sql,x).map do |row|
+    self.new_from_db(row)
+    end 
   end 
  
 end
