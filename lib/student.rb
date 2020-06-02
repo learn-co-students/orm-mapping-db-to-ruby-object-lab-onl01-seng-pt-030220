@@ -2,7 +2,12 @@ class Student
   attr_accessor :id, :name, :grade
 
   def self.new_from_db(row)
-    # create a new Student object given a row from the database
+    # use .new to TEMPORARILY REPRESENT DATA in RUBY
+    new_student = self.new #SELF is referring to CLASS itself because it is a class method to begin with
+    new_student.id = row[0]
+    new_student.name = row[1]
+    new_student.grade = row[2]
+    return new_student
   end
 
   def self.all
