@@ -87,6 +87,15 @@ def self.students_below_12th_grade
   end
 end
 
+def self.all
+  #practicing with nonHEREDOC
+  sql = "SELECT * FROM students;"
+  DB[:conn].execute(sql).map do |r|
+    self.new_from_db(r)
+  end
+  
+end
+
 
 
 
