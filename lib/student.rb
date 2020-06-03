@@ -84,16 +84,20 @@ def self.all
   end  
 end
 
-def first_X_students_in_grade_10(number_x)
+def self.first_X_students_in_grade_10(number_x)
   sql = <<-SQL
     SELECT *
     FROM students
     WHERE grade = '10'
-    LIMIT 10
+    LIMIT ?
   SQL
-  DB[:conn].execute(sql).map do |r|
+  
+  DB[:conn].execute(sql, number_x).map do |r|
     self.new_from_db(r)
   end
+
+ 
+  
 end
 
 
