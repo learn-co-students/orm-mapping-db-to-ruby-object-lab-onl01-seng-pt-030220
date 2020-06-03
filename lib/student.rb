@@ -97,32 +97,35 @@ def self.first_X_students_in_grade_10(number_x)
 end
 
 
-# def self.first_student_in_grade_10
-#   sql = "SELECT * FROM students WHERE grade = '10' LIMIT 1;"
-#   DB[:conn].execute(sql).map{|row| self.new_from_db(row)}
-# end
-  
 def self.first_student_in_grade_10
   sql = <<-SQL
-  SELECT * 
-  FROM students 
-  WHERE grade = '10' 
-  LIMIT 1
+    SELECT *
+    FROM students
+    WHERE grade = '10'
+    ORDER BY id
+    LIMIT 1
   SQL
-
   DB[:conn].execute(sql).map do |row| 
-  self.new_from_db(row)
-  end
+    self.new_from_db(row)
+  end.first
+  #?Why does having an ID error mean that I need to ORDER IT BY ID????
+  #?Also,, why do I have to put .FIRST here but not in .first_x_stu....?
+  #? Do I need to be reading these errors differently than I usually do???
 end
   
+def self.all_students_in_grade_X(grade_x)
+  sql = <<-SQL
+  
+  SELECT *
+  FROM students
+  WHERE grade = ?
 
+  SQL
 
-
-
-
-
-
-
-
+  DB[:conn].execute(sql, grade_x)
+end
   
 end #!classEND
+
+
+#I did it!.. <3 go me
